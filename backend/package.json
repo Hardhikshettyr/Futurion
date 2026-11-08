@@ -1,0 +1,38 @@
+{
+  "name": "futurion-backend",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js",
+    "test": "jest --runInBand",
+    "skills:seed": "node scripts/seed-skills.js",
+    "skills:migrate": "node scripts/migrate-profile-skills.js",
+    "skills:migrate:dry": "node scripts/migrate-profile-skills.js --dry-run",
+    "careers:seed": "node scripts/seed-careers.js",
+    "learning:seed": "node scripts/seed-learning-resources.js",
+    "opportunities:seed": "node scripts/seed-opportunities.js",
+    "email:verify": "node scripts/verify-smtp.js",
+    "email:test": "node scripts/send-test-verification-email.js"
+  },
+  "dependencies": {
+    "@google/genai": "^2.22.0",
+    "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.9",
+    "express": "^5.3.0",
+    "express-rate-limit": "^8.7.3",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.12.0",
+    "multer": "^2.5.0",
+    "nodemailer": "^10.3.1",
+    "pdfkit": "^0.20.2",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "jest": "^30.5.2",
+    "nodemon": "^3.1.14",
+    "supertest": "^7.3.2"
+  }
+}

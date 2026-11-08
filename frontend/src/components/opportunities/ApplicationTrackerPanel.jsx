@@ -1,0 +1,12 @@
+import { Link } from "react-router-dom";
+
+const statuses = ["interested", "planning_to_apply", "applied", "assessment", "interview", "selected", "rejected", "withdrawn"];
+const statusLabels = { interested: "Interested", planning_to_apply: "Planning to apply", applied: "Applied", assessment: "Assessment", interview: "Interview", selected: "Selected", rejected: "Not selected", withdrawn: "Withdrawn" };
+
+function ApplicationTrackerPanel({ applications, onUpdate, onRemove, busyId }) {
+  return <section className="application-tracker"><div className="opportunity-section-heading"><div><p className="eyebrow">Application tracker</p><h2>Your decisions, dates and notes.</h2><p>Statuses are maintained by you. Futurion never submits an application automatically.</p></div></div>
+    {applications.length ? <div className="application-list">{applications.map((application) => <article key={application.id}><header><div><span>{application.opportunity?.opportunityTypeLabel}</span><h3>{application.opportunity?.title}</h3><p>{application.opportunity?.organization}</p></div><Link to={`/dashboard/opportunities/${application.opportunity?.id}`}>Open details</Link></header><div className="application-fields"><label>Status<select className="field-input" value={application.status} disabled={busyId === application.id} onChange={(event) => onUpdate(application.id, { status: event.target.value })}>{statuses.map((status) => <option key={status} value={status}>{statusLabels[status]}</option>)}</select></label><label>Application date<input className="field-input" type="date" value={application.applicationDate ? new Date(application.applicationDate).toISOString().slice(0, 10) : ""} onChange={(event) => onUpdate(application.id, { applicationDate: event.target.value || null })} /></label><label className="application-notes">Private notes<textarea className="field-input" maxLength="3000" defaultValue={application.notes} onBlur={(event) => event.target.value !== application.notes && onUpdate(application.id, { notes: event.target.value })} /></label></div><footer><span>{application.opportunity?.applicationDeadline ? `Deadline ${new Date(application.opportunity.applicationDeadline).toLocaleDateString()}` : "Deadline varies"}</span><button type="button" onClick={() => onRemove(application.id)}>Remove from tracker</button></footer></article>)}</div> : <div className="opportunity-empty"><h3>No tracked applications yet.</h3><p>Add an opportunity to the tracker from the explorer or details page.</p></div>}
+  </section>;
+}
+
+export default ApplicationTrackerPanel;
