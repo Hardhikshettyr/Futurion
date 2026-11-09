@@ -2,6 +2,7 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const express = require("express");
 const apiRouter = require("./routes");
+app.set("trust proxy", 1);
 const {
   errorHandler,
   notFoundHandler,
